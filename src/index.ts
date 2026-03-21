@@ -4,6 +4,8 @@ export type { KeyState } from './pool-exhausted-error';
 export { isRateLimitError, extractRetryAfterMs } from './rate-limit-detector';
 export { CooldownManager } from './cooldown';
 export { UsageTracker } from './usage-tracker';
+export { KeyPool } from './key-pool';
+export type { InternalKeyEntry } from './key-pool';
 export type {
   RotationStrategy,
   KeyConfig,
