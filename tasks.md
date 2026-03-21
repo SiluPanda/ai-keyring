@@ -66,27 +66,27 @@
 
 ## Phase 6: Rotation Strategies
 
-- [ ] **Create `src/rotation/index.ts` — Strategy factory** — Implement a factory function `createRotationStrategy(strategy: RotationStrategy): RotationStrategyImpl` that returns the appropriate strategy implementation. Define a common interface: `{ select(availableKeys: InternalKeyEntry[]): InternalKeyEntry | null }`. | Status: not_done
+- [x] **Create `src/rotation/index.ts` — Strategy factory** — Implement a factory function `createRotationStrategy(strategy: RotationStrategy): RotationStrategyImpl` that returns the appropriate strategy implementation. Define a common interface: `{ select(availableKeys: InternalKeyEntry[]): InternalKeyEntry | null }`. | Status: done
 
-- [ ] **Implement `src/rotation/round-robin.ts`** — Maintain a counter `i` initialized to 0. On each call, select key at `i % availableKeys.length`, then increment `i`. When a key is removed and was at or before the current position, adjust the counter. When keys enter/leave the available set, the rotation order (insertion order) is preserved. | Status: not_done
+- [x] **Implement `src/rotation/round-robin.ts`** — Maintain a counter `i` initialized to 0. On each call, select key at `i % availableKeys.length`, then increment `i`. When a key is removed and was at or before the current position, adjust the counter. When keys enter/leave the available set, the rotation order (insertion order) is preserved. | Status: done
 
-- [ ] **Write tests `src/__tests__/rotation/round-robin.test.ts`** — Test: returns keys in insertion order. Wraps around after last key. Skips keys not in available set. Full cycle with all keys skipped returns null (signals pool exhaustion). Adding a key mid-rotation integrates it into the cycle. Removing a key adjusts the counter correctly. | Status: not_done
+- [x] **Write tests `src/__tests__/rotation/round-robin.test.ts`** — Test: returns keys in insertion order. Wraps around after last key. Skips keys not in available set. Full cycle with all keys skipped returns null (signals pool exhaustion). Adding a key mid-rotation integrates it into the cycle. Removing a key adjusts the counter correctly. | Status: done
 
-- [ ] **Implement `src/rotation/lru.ts`** — Track `lastUsedAt` per key. Select the available key with the oldest `lastUsedAt`. Break ties by insertion order. Update `lastUsedAt` when a key is selected. | Status: not_done
+- [x] **Implement `src/rotation/lru.ts`** — Track `lastUsedAt` per key. Select the available key with the oldest `lastUsedAt`. Break ties by insertion order. Update `lastUsedAt` when a key is selected. | Status: done
 
-- [ ] **Write tests `src/__tests__/rotation/lru.test.ts`** — Test: selects key with oldest `lastUsedAt`. Breaks ties by insertion order. After selection, the selected key has the newest `lastUsedAt`. Key returning from cooldown has stale `lastUsedAt` and is immediately selected. | Status: not_done
+- [x] **Write tests `src/__tests__/rotation/lru.test.ts`** — Test: selects key with oldest `lastUsedAt`. Breaks ties by insertion order. After selection, the selected key has the newest `lastUsedAt`. Key returning from cooldown has stale `lastUsedAt` and is immediately selected. | Status: done
 
-- [ ] **Implement `src/rotation/least-requests.ts`** — Track `requests` counter per key. Select the available key with the fewest total requests. Break ties by insertion order. | Status: not_done
+- [x] **Implement `src/rotation/least-requests.ts`** — Track `requests` counter per key. Select the available key with the fewest total requests. Break ties by insertion order. | Status: done
 
-- [ ] **Write tests `src/__tests__/rotation/least-requests.test.ts`** — Test: selects key with fewest requests. Breaks ties by insertion order. Newly added key (0 requests) is preferred. After many requests, distribution equalizes. | Status: not_done
+- [x] **Write tests `src/__tests__/rotation/least-requests.test.ts`** — Test: selects key with fewest requests. Breaks ties by insertion order. Newly added key (0 requests) is preferred. After many requests, distribution equalizes. | Status: done
 
-- [ ] **Implement `src/rotation/weighted-random.ts`** — Compute cumulative weight sum of available keys. Generate `Math.random() * totalWeight`. Walk keys accumulating weights, select the key whose cumulative range contains the random number. Default weight is 1. | Status: not_done
+- [x] **Implement `src/rotation/weighted-random.ts`** — Compute cumulative weight sum of available keys. Generate `Math.random() * totalWeight`. Walk keys accumulating weights, select the key whose cumulative range contains the random number. Default weight is 1. | Status: done
 
-- [ ] **Write tests `src/__tests__/rotation/weighted-random.test.ts`** — Test: over 10,000 iterations, distribution converges to weight ratios within tolerance (e.g., weights [3, 1] produce ~75%/25% within 5% tolerance). Single key always selected. All keys with equal weight produce roughly equal distribution. Key with weight 0 is never selected (or disallowed by validation). | Status: not_done
+- [x] **Write tests `src/__tests__/rotation/weighted-random.test.ts`** — Test: over 10,000 iterations, distribution converges to weight ratios within tolerance (e.g., weights [3, 1] produce ~75%/25% within 5% tolerance). Single key always selected. All keys with equal weight produce roughly equal distribution. Key with weight 0 is never selected (or disallowed by validation). | Status: done
 
-- [ ] **Implement `src/rotation/priority.ts`** — Sort available keys by priority (ascending). Select the key with the lowest priority value. If multiple keys share the same priority, use round-robin among them as a tiebreaker. | Status: not_done
+- [x] **Implement `src/rotation/priority.ts`** — Sort available keys by priority (ascending). Select the key with the lowest priority value. If multiple keys share the same priority, use round-robin among them as a tiebreaker. | Status: done
 
-- [ ] **Write tests `src/__tests__/rotation/priority.test.ts`** — Test: selects lowest-priority-number key. Falls back to next priority level when top-priority key is unavailable. Round-robin tiebreaker among same-priority keys. All keys unavailable returns null. | Status: not_done
+- [x] **Write tests `src/__tests__/rotation/priority.test.ts`** — Test: selects lowest-priority-number key. Falls back to next priority level when top-priority key is unavailable. Round-robin tiebreaker among same-priority keys. All keys unavailable returns null. | Status: done
 
 ---
 
