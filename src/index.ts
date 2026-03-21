@@ -6,6 +6,15 @@ export { CooldownManager } from './cooldown';
 export { UsageTracker } from './usage-tracker';
 export { KeyPool } from './key-pool';
 export type { InternalKeyEntry } from './key-pool';
+export {
+  createRotationStrategy,
+  RoundRobinStrategy,
+  LeastRecentlyUsedStrategy,
+  LeastRequestsStrategy,
+  WeightedRandomStrategy,
+  PriorityStrategy,
+} from './rotation';
+export type { RotationStrategyImpl } from './rotation';
 export type {
   RotationStrategy,
   KeyConfig,

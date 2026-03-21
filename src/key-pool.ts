@@ -3,6 +3,8 @@ import type { KeyConfig, KeyEntry } from './types';
 
 export interface InternalKeyEntry extends KeyEntry {
   disabled: boolean;
+  weight: number;
+  priority: number;
 }
 
 export class KeyPool {
@@ -24,6 +26,8 @@ export class KeyPool {
       tags: config.tags || [],
       metadata: config.metadata,
       disabled: false,
+      weight: config.weight ?? 1,
+      priority: config.priority ?? 0,
     };
 
     this.keys.set(id, entry);
