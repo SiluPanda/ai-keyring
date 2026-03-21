@@ -1,6 +1,7 @@
 // ai-keyring - Manage, rotate, and health-check AI API keys across providers
 export { PoolExhaustedError } from './pool-exhausted-error';
 export type { KeyState } from './pool-exhausted-error';
+export { isRateLimitError, extractRetryAfterMs } from './rate-limit-detector';
 export type {
   RotationStrategy,
   KeyConfig,
