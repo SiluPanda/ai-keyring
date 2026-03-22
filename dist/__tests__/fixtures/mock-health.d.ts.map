@@ -1,0 +1,1 @@
+{"version":3,"file":"mock-health.d.ts","sourceRoot":"","sources":["../../../src/__tests__/fixtures/mock-health.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,aAAa,EAAqB,MAAM,aAAa,CAAC;AAEpE,eAAO,MAAM,aAAa,EAAE,aAG1B,CAAC;AAEH,eAAO,MAAM,eAAe,EAAE,aAI5B,CAAC;AAEH,wBAAgB,aAAa,IAAI,aAAa,CAO7C;AAED,eAAO,MAAM,SAAS,EAAE,aAItB,CAAC;AAEH,eAAO,MAAM,eAAe,EAAE,aAG7B,CAAC"}

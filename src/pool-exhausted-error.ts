@@ -1,6 +1,6 @@
 export interface KeyState {
   id: string;
-  status: 'cooldown' | 'disabled' | 'exhausted';
+  status: 'available' | 'cooldown' | 'disabled';
   cooldownEndsAt?: Date;
   cooldownRemainingMs?: number;
 }

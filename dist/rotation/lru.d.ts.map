@@ -1,0 +1,1 @@
+{"version":3,"file":"lru.d.ts","sourceRoot":"","sources":["../../src/rotation/lru.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,SAAS,CAAC;AACpD,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,aAAa,CAAC;AAEpD,qBAAa,yBAA0B,YAAW,oBAAoB;IACpE,OAAO,CAAC,QAAQ,CAA6B;IAE7C,MAAM,CAAC,aAAa,EAAE,gBAAgB,EAAE,GAAG,gBAAgB,GAAG,IAAI;CAcnE"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"weighted-random.d.ts","sourceRoot":"","sources":["../../src/rotation/weighted-random.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,SAAS,CAAC;AACpD,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,aAAa,CAAC;AAEpD,qBAAa,sBAAuB,YAAW,oBAAoB;IACjE,MAAM,CAAC,aAAa,EAAE,gBAAgB,EAAE,GAAG,gBAAgB,GAAG,IAAI;CAUnE"}

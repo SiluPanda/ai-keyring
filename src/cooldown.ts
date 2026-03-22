@@ -109,6 +109,11 @@ export class CooldownManager {
     this.consecutiveRateLimits.set(keyId, 0);
   }
 
+  /** Get the current escalation level for a key. */
+  getEscalationLevel(keyId: string): number {
+    return this.consecutiveRateLimits.get(keyId) || 0;
+  }
+
   /**
    * Get the cooldown end timestamp for a key, or null if not in cooldown.
    */
