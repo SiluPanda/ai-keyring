@@ -92,25 +92,25 @@
 
 ## Phase 7: Core Keyring Factory & `getKey`
 
-- [ ] **Implement `src/keyring.ts` — `createKeyring` factory function** — Wire together `KeyPool`, rotation strategies, `CooldownManager`, `UsageTracker`, and `RateLimitDetector`. Accept `KeyringConfig`, validate all options (see Phase 8), construct internal state, and return a `Keyring` instance object with all methods. | Status: not_done
+- [x] **Implement `src/keyring.ts` — `createKeyring` factory function** — Wire together `KeyPool`, rotation strategies, `CooldownManager`, `UsageTracker`, and `RateLimitDetector`. Accept `KeyringConfig`, validate all options (see Phase 8), construct internal state, and return a `Keyring` instance object with all methods. | Status: done
 
-- [ ] **Implement `keyring.getKey(provider?)` method** — Accept optional provider string, `{ provider?, tag? }` object, or no argument (any pool). Look up the appropriate pool. Filter to available keys (not in cooldown, not disabled, not expired). Apply the rotation strategy (global or per-pool override). If a key is selected: increment request counter, update `lastUsedAt`, fire `onKeyRotation` hook, return `KeyEntry`. If during filtering a key's cooldown has expired, re-enable it and fire `onCooldownEnd`. If a key's `metadata.expiresAt` is in the past, disable it and fire `onKeyDisabled`. | Status: not_done
+- [x] **Implement `keyring.getKey(provider?)` method** — Accept optional provider string, `{ provider?, tag? }` object, or no argument (any pool). Look up the appropriate pool. Filter to available keys (not in cooldown, not disabled, not expired). Apply the rotation strategy (global or per-pool override). If a key is selected: increment request counter, update `lastUsedAt`, fire `onKeyRotation` hook, return `KeyEntry`. If during filtering a key's cooldown has expired, re-enable it and fire `onCooldownEnd`. If a key's `metadata.expiresAt` is in the past, disable it and fire `onKeyDisabled`. | Status: done
 
-- [ ] **Implement pool exhaustion handling in `getKey`** — When no available key is found after rotation: (1) If `fallbackPool` is configured for the pool, try the fallback pool recursively (avoid infinite loops). (2) Apply the `onPoolExhausted` strategy: `'throw'` throws `PoolExhaustedError`, `'wait'` blocks until shortest cooldown expires (bounded by `maxWaitMs`), `'fallback'` invokes the provided function. Fire `onPoolExhausted` hook before applying the strategy. | Status: not_done
+- [x] **Implement pool exhaustion handling in `getKey`** — When no available key is found after rotation: (1) If `fallbackPool` is configured for the pool, try the fallback pool recursively (avoid infinite loops). (2) Apply the `onPoolExhausted` strategy: `'throw'` throws `PoolExhaustedError`, `'wait'` blocks until shortest cooldown expires (bounded by `maxWaitMs`), `'fallback'` invokes the provided function. Fire `onPoolExhausted` hook before applying the strategy. | Status: done
 
-- [ ] **Implement `keyring.reportUsage(keyId, usage)` method** — Look up key by ID. If not found, no-op (do not throw). Delegate to `UsageTracker.recordUsage`. Reset cooldown escalation counter for the key (successful request). | Status: not_done
+- [x] **Implement `keyring.reportUsage(keyId, usage)` method** — Look up key by ID. If not found, no-op (do not throw). Delegate to `UsageTracker.recordUsage`. Reset cooldown escalation counter for the key (successful request). | Status: done
 
-- [ ] **Implement `keyring.reportError(keyId, error)` method** — Look up key by ID. If not found, no-op. Increment error counter. Check if error is a rate limit (429) via `isRateLimitError`. If 429: extract Retry-After, compute cooldown (with escalation if applicable), set cooldown, increment rateLimits counter, fire `onCooldownStart` hook. If not 429: record error type but do not place in cooldown. | Status: not_done
+- [x] **Implement `keyring.reportError(keyId, error)` method** — Look up key by ID. If not found, no-op. Increment error counter. Check if error is a rate limit (429) via `isRateLimitError`. If 429: extract Retry-After, compute cooldown (with escalation if applicable), set cooldown, increment rateLimits counter, fire `onCooldownStart` hook. If not 429: record error type but do not place in cooldown. | Status: done
 
-- [ ] **Implement `keyring.addKey(config)` method** — Validate config (non-empty key, non-empty provider, unique id). Delegate to `KeyPool.addKey`. Initialize usage counters and cooldown state for the new key. The key is immediately available for selection. | Status: not_done
+- [x] **Implement `keyring.addKey(config)` method** — Validate config (non-empty key, non-empty provider, unique id). Delegate to `KeyPool.addKey`. Initialize usage counters and cooldown state for the new key. The key is immediately available for selection. | Status: done
 
-- [ ] **Implement `keyring.removeKey(keyId)` method** — Delegate to `KeyPool.removeKey`. Clean up usage counters, cooldown state. If the key was the current position in round-robin, adjust. No-op for non-existent ID. | Status: not_done
+- [x] **Implement `keyring.removeKey(keyId)` method** — Delegate to `KeyPool.removeKey`. Clean up usage counters, cooldown state. If the key was the current position in round-robin, adjust. No-op for non-existent ID. | Status: done
 
-- [ ] **Implement `keyring.getStats()` method** — Build and return `KeyringStats` object. Per-key stats: all fields from `KeyStats` interface. Per-pool stats: aggregate `totalKeys`, `availableKeys`, `cooldownKeys`, `disabledKeys`, `totalRequests`, `totalTokens`, `totalErrors`. Never include raw key strings. Derive `status` field: `'available'`, `'cooldown'`, or `'disabled'`. | Status: not_done
+- [x] **Implement `keyring.getStats()` method** — Build and return `KeyringStats` object. Per-key stats: all fields from `KeyStats` interface. Per-pool stats: aggregate `totalKeys`, `availableKeys`, `cooldownKeys`, `disabledKeys`, `totalRequests`, `totalTokens`, `totalErrors`. Never include raw key strings. Derive `status` field: `'available'`, `'cooldown'`, or `'disabled'`. | Status: done
 
-- [ ] **Implement per-pool strategy override** — When `pools` config specifies a `strategy` for a specific provider pool, use that strategy for that pool instead of the global strategy. | Status: not_done
+- [x] **Implement per-pool strategy override** — When `pools` config specifies a `strategy` for a specific provider pool, use that strategy for that pool instead of the global strategy. | Status: done
 
-- [ ] **Write tests `src/__tests__/keyring.test.ts`** — Test `createKeyring` with valid config returns a Keyring instance. `getKey` returns keys. `reportUsage` records usage. `reportError` with 429 places key in cooldown. `addKey` adds a key dynamically. `removeKey` removes a key. `getStats` returns correct shape. Per-pool strategy override works. `getKey` with no provider returns any available key. `getKey` with `{ tag: 'premium' }` returns tagged key. `getKey` with `{ provider: 'openai', tag: 'us-east' }` filters by both. | Status: not_done
+- [x] **Write tests `src/__tests__/keyring.test.ts`** — Test `createKeyring` with valid config returns a Keyring instance. `getKey` returns keys. `reportUsage` records usage. `reportError` with 429 places key in cooldown. `addKey` adds a key dynamically. `removeKey` removes a key. `getStats` returns correct shape. Per-pool strategy override works. `getKey` with no provider returns any available key. `getKey` with `{ tag: 'premium' }` returns tagged key. `getKey` with `{ provider: 'openai', tag: 'us-east' }` filters by both. | Status: done
 
 ---
 
@@ -124,7 +124,7 @@
 
 ## Phase 9: Pool Exhaustion Strategies
 
-- [ ] **Implement `throw` exhaustion strategy** — When all keys in a pool are unavailable, throw `PoolExhaustedError` with: the pool name, per-key states (id, status, cooldownEndsAt, cooldownRemainingMs), and shortestCooldownMs. This is the default strategy. | Status: not_done
+- [x] **Implement `throw` exhaustion strategy** — When all keys in a pool are unavailable, throw `PoolExhaustedError` with: the pool name, per-key states (id, status, cooldownEndsAt, cooldownRemainingMs), and shortestCooldownMs. This is the default strategy. | Status: done
 
 - [ ] **Implement `wait` exhaustion strategy** — When all keys are unavailable, compute the shortest remaining cooldown across all keys. Create a `Promise` that resolves after that duration (using `setTimeout`). If the wait exceeds `maxWaitMs` (default 30000), throw `PoolExhaustedError` instead. When the wait completes, re-check availability and return the key. Note: `getKey` must be async-compatible for this strategy. | Status: not_done
 
@@ -160,7 +160,7 @@
 
 ## Phase 11: Event Hooks
 
-- [ ] **Implement `onCooldownStart` hook** — Fire when a key enters cooldown. Payload: `{ keyId, provider, cooldownMs, retryAfter? (raw Retry-After value if present), escalationLevel }`. | Status: not_done
+- [x] **Implement `onCooldownStart` hook** — Fire when a key enters cooldown. Payload: `{ keyId, provider, cooldownMs, retryAfter? (raw Retry-After value if present), escalationLevel }`. | Status: done
 
 - [ ] **Implement `onCooldownEnd` hook** — Fire when a key exits cooldown (detected lazily in `getKey`). Payload: `{ keyId, provider, cooldownDurationMs }`. | Status: not_done
 
@@ -168,11 +168,11 @@
 
 - [ ] **Implement `onKeyEnabled` hook** — Fire when a disabled key is re-enabled (passes health check). Payload: `{ keyId, provider }`. | Status: not_done
 
-- [ ] **Implement `onPoolExhausted` hook** — Fire when all keys in a pool are unavailable. Payload: `{ pool, totalKeys, cooldownKeys, disabledKeys, shortestCooldownMs }`. | Status: not_done
+- [x] **Implement `onPoolExhausted` hook** — Fire when all keys in a pool are unavailable. Payload: `{ pool, totalKeys, cooldownKeys, disabledKeys, shortestCooldownMs }`. | Status: done
 
 - [ ] **Implement `onHealthCheckComplete` hook** — Fire after a health check completes. Payload: `{ report: HealthCheckReport }`. | Status: not_done
 
-- [ ] **Implement `onKeyRotation` hook** — Fire each time `getKey` selects a key. Payload: `{ keyId, provider, strategy, poolSize, availableKeys }`. | Status: not_done
+- [x] **Implement `onKeyRotation` hook** — Fire each time `getKey` selects a key. Payload: `{ keyId, provider, strategy, poolSize, availableKeys }`. | Status: done
 
 - [ ] **Write tests `src/__tests__/events.test.ts`** — Test each hook fires at the correct time with the correct payload: `onCooldownStart` on 429 error, `onCooldownEnd` when cooldown expires in `getKey`, `onKeyDisabled` on health check failure and on expired key, `onKeyEnabled` on health check recovery, `onPoolExhausted` when all keys unavailable, `onHealthCheckComplete` after health check, `onKeyRotation` on every `getKey` call. Verify hooks are optional (no error when not provided). Verify hook errors do not crash the keyring (errors in hooks are swallowed or logged). | Status: not_done
 
@@ -180,7 +180,7 @@
 
 ## Phase 12: State Export & Import
 
-- [ ] **Implement `keyring.exportState()` method** — Return an `ExportedKeyringState` object containing per-key usage counters (`requests`, `tokens`, `inputTokens`, `outputTokens`, `errors`, `rateLimits`, `cost`, `totalCooldownMs`, `cooldownEndsAt`, `healthStatus`, `lastUsedAt`, `lastErrorAt`, `lastHealthCheckAt`) keyed by `id`, plus `exportedAt` timestamp. Never include raw key strings. The object must be JSON-serializable. | Status: not_done
+- [x] **Implement `keyring.exportState()` method** — Return an `ExportedKeyringState` object containing per-key usage counters (`requests`, `tokens`, `inputTokens`, `outputTokens`, `errors`, `rateLimits`, `cost`, `totalCooldownMs`, `cooldownEndsAt`, `healthStatus`, `lastUsedAt`, `lastErrorAt`, `lastHealthCheckAt`) keyed by `id`, plus `exportedAt` timestamp. Never include raw key strings. The object must be JSON-serializable. | Status: done
 
 - [ ] **Implement `initialState` restoration in `createKeyring`** — When `initialState` is provided, match exported state entries to keys by `id`. Restore usage counters and timestamps. Keys in `initialState` but not in `keys` config are ignored. Keys in `keys` config but not in `initialState` start fresh (zero counters). Expired cooldowns in imported state (`cooldownEndsAt` in the past) are cleared on first interaction. | Status: not_done
 
@@ -198,15 +198,15 @@
 
 ## Phase 14: Security Hardening
 
-- [ ] **Ensure key strings never appear in stats** — Audit `getStats()` return value: only `id`, metadata, and usage counters are exposed. The `key` field is never present. | Status: not_done
+- [x] **Ensure key strings never appear in stats** — Audit `getStats()` return value: only `id`, metadata, and usage counters are exposed. The `key` field is never present. | Status: done
 
-- [ ] **Ensure key strings never appear in events** — Audit all hook payloads: only `keyId` is used, never the raw key. | Status: not_done
+- [x] **Ensure key strings never appear in events** — Audit all hook payloads: only `keyId` is used, never the raw key. | Status: done
 
-- [ ] **Ensure key strings never appear in exported state** — Audit `exportState()`: entries are keyed by `id`, raw key strings are not included. | Status: not_done
+- [x] **Ensure key strings never appear in exported state** — Audit `exportState()`: entries are keyed by `id`, raw key strings are not included. | Status: done
 
 - [ ] **Implement key masking in error messages** — In `reportError`, if the error message contains patterns matching common API key formats (`sk-...`, `key-...`, `AIza...`, etc.), strip or mask them before propagating to event hooks. Use regex to detect and replace with `[REDACTED]`. | Status: not_done
 
-- [ ] **Ensure key strings never appear in `PoolExhaustedError`** — Audit the error class: `keyStates` contains `id` and `status`, never the raw key. The error `message` does not include keys. | Status: not_done
+- [x] **Ensure key strings never appear in `PoolExhaustedError`** — Audit the error class: `keyStates` contains `id` and `status`, never the raw key. The error `message` does not include keys. | Status: done
 
 - [ ] **Write security-focused tests** — Test: `getStats` output does not contain any key string from the config. Event hook payloads do not contain key strings. `exportState` output does not contain key strings. `PoolExhaustedError` does not contain key strings. Error messages with embedded API keys are masked before reaching hooks. | Status: not_done
 
@@ -238,7 +238,7 @@
 
 ## Phase 17: Public API Exports
 
-- [ ] **Implement `src/index.ts` — Public API surface** — Export `createKeyring` as the primary function. Export `PoolExhaustedError` class. Export all TypeScript types/interfaces needed by consumers: `KeyConfig`, `KeyEntry`, `KeyringConfig`, `KeyringStats`, `KeyStats`, `PoolState`, `RotationStrategy`, `UsageReport`, `HealthCheckResult`, `HealthCheckFn`, `HealthCheckConfig`, `HealthCheckReport`, `PoolExhaustionConfig`, `KeyringHooks`, `ExportedKeyringState`, `Keyring`, `PoolConfig`. | Status: not_done
+- [x] **Implement `src/index.ts` — Public API surface** — Export `createKeyring` as the primary function. Export `PoolExhaustedError` class. Export all TypeScript types/interfaces needed by consumers: `KeyConfig`, `KeyEntry`, `KeyringConfig`, `KeyringStats`, `KeyStats`, `PoolState`, `RotationStrategy`, `UsageReport`, `HealthCheckResult`, `HealthCheckFn`, `HealthCheckConfig`, `HealthCheckReport`, `PoolExhaustionConfig`, `KeyringHooks`, `ExportedKeyringState`, `Keyring`, `PoolConfig`. | Status: done
 
 ---
 
