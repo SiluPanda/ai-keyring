@@ -1,0 +1,1 @@
+{"version":3,"file":"least-requests.d.ts","sourceRoot":"","sources":["../../src/rotation/least-requests.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,SAAS,CAAC;AACpD,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,aAAa,CAAC;AAEpD,qBAAa,qBAAsB,YAAW,oBAAoB;IAChE,OAAO,CAAC,QAAQ,CAA6B;IAE7C,MAAM,CAAC,aAAa,EAAE,gBAAgB,EAAE,GAAG,gBAAgB,GAAG,IAAI;CAcnE"}

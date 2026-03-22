@@ -1,0 +1,1 @@
+{"version":3,"file":"priority.d.ts","sourceRoot":"","sources":["../../src/rotation/priority.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,SAAS,CAAC;AACpD,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,aAAa,CAAC;AAEpD,qBAAa,gBAAiB,YAAW,oBAAoB;IAC3D,OAAO,CAAC,OAAO,CAAK;IAEpB,MAAM,CAAC,aAAa,EAAE,gBAAgB,EAAE,GAAG,gBAAgB,GAAG,IAAI;CAUnE"}

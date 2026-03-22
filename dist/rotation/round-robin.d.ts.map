@@ -1,0 +1,1 @@
+{"version":3,"file":"round-robin.d.ts","sourceRoot":"","sources":["../../src/rotation/round-robin.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,SAAS,CAAC;AACpD,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,aAAa,CAAC;AAEpD,qBAAa,kBAAmB,YAAW,oBAAoB;IAC7D,OAAO,CAAC,OAAO,CAAK;IAEpB,MAAM,CAAC,aAAa,EAAE,gBAAgB,EAAE,GAAG,gBAAgB,GAAG,IAAI;CAMnE"}

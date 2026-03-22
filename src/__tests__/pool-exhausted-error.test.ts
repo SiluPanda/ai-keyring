@@ -6,7 +6,7 @@ describe('PoolExhaustedError', () => {
   const keyStates: KeyState[] = [
     { id: 'key-1', status: 'cooldown', cooldownRemainingMs: 5000, cooldownEndsAt: new Date(Date.now() + 5000) },
     { id: 'key-2', status: 'disabled' },
-    { id: 'key-3', status: 'exhausted' },
+    { id: 'key-3', status: 'available' },
   ];
 
   const err = new PoolExhaustedError('All keys exhausted', 'openai', keyStates, 5000);
@@ -33,7 +33,7 @@ describe('PoolExhaustedError', () => {
     expect(err.keyStates[0].id).toBe('key-1');
     expect(err.keyStates[0].status).toBe('cooldown');
     expect(err.keyStates[1].status).toBe('disabled');
-    expect(err.keyStates[2].status).toBe('exhausted');
+    expect(err.keyStates[2].status).toBe('available');
   });
 
   it('shortestCooldownMs is accessible', () => {
