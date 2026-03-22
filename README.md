@@ -3,6 +3,7 @@
 Manage, rotate, and health-check AI API keys across providers.
 
 [![npm version](https://img.shields.io/npm/v/ai-keyring.svg)](https://www.npmjs.com/package/ai-keyring)
+[![npm downloads](https://img.shields.io/npm/dt/ai-keyring.svg)](https://www.npmjs.com/package/ai-keyring)
 [![license](https://img.shields.io/npm/l/ai-keyring.svg)](https://github.com/SiluPanda/ai-keyring/blob/master/LICENSE)
 [![node](https://img.shields.io/node/v/ai-keyring.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](https://www.typescriptlang.org/)
